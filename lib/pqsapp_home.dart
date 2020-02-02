@@ -14,10 +14,10 @@ class PQSApp extends StatefulWidget {
   _PQSAppState createState() => _PQSAppState();
 }
 
-class _PQSAppState extends State<PQSApp>
-    with SingleTickerProviderStateMixin {
+class _PQSAppState extends State<PQSApp> with SingleTickerProviderStateMixin {
   TabController _tabController;
   bool showFab = true;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -79,7 +79,59 @@ class _PQSAppState extends State<PQSApp>
           Icons.add,
           color: Colors.white,
         ),
-        onPressed: () => print("New Task"),
+        onPressed: () => showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          minLines: 2,
+                          maxLines: null,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: 'Title'
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          minLines: 2,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            labelText: 'Description'
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RaisedButton(
+                          child: Text("Insert"),
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              _formKey.currentState.save();
+                            }
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }),
       ),
     );
   }
