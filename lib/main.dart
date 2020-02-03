@@ -3,13 +3,20 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterwhatsapp/pqsapp_home.dart';
+import 'package:flutterwhatsapp/state/report_state.dart';
+import 'package:provider/provider.dart';
 
 List<CameraDescription> cameras;
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  cameras = await availableCameras();
-  runApp(new MyApp());
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<ReportState>(create: (_) => ReportState())
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

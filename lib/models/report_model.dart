@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -20,16 +22,37 @@ class ReportModel {
               "http://www.usanetwork.com/sites/usanetwork/files/styles/629x720/public/suits_cast_harvey.jpg?itok=fpTOeeBb")
         .toList();
   }
+
+  static ReportModel fromJson(String jsonString) {
+    final dynamic data = jsonDecode(jsonString);
+    return ReportModel()
+      ..title = data['title']
+      ..description = data['description']
+      ..createdAt = data['createdAt']
+      ..avatarUrl =
+          "http://www.usanetwork.com/sites/usanetwork/files/styles/629x720/public/suits_cast_harvey.jpg?itok=fpTOeeBb";
+  }
 }
 
 Future<List<ReportModel>> getReports() async {
   final String url = 'http://192.168.1.15:8080/reports/1';
-
   final response = await http.get(url);
   if (response.statusCode == 200) {
     return ReportModel.toList(response.body);
   }
   throw Exception('Failed to load featured movies');
+}
+
+Future<ReportModel> saveReport(String title, String description) async {
+  final String url = 'http://192.168.1.15:8080/reports/1';
+
+  final response = await http.post(url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({'title': title, 'description': description}));
+  if (response.statusCode == 200) {
+    return ReportModel.fromJson(response.body);
+  }
+  throw Exception('Failed to load data model');
 }
 
 List<ReportModel> reports = [
