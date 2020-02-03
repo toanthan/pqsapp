@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
-import '../models/chat_model.dart';
+import '../models/report_model.dart';
 
 class ReportScreen extends StatefulWidget {
   @override
   ReportScreenState createState() {
-    return new ReportScreenState();
+    return ReportScreenState();
   }
 }
 
 class ReportScreenState extends State<ReportScreen> {
+  List<ReportModel> _reports = <ReportModel>[];
+
+  @override
+  void initState() {
+    super.initState();
+
+    listenForReports();
+  }
+
+  void listenForReports() async {
+    List<ReportModel> data = await getReports();
+    setState(() {
+      _reports = data;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
-      itemCount: dummyData.length,
+    return ListView.builder(
+      itemCount: _reports.length,
       itemBuilder: (context, i) => new Column(
             children: <Widget>[
               new Divider(
@@ -22,17 +38,17 @@ class ReportScreenState extends State<ReportScreen> {
                 leading: new CircleAvatar(
                   foregroundColor: Theme.of(context).primaryColor,
                   backgroundColor: Colors.grey,
-                  backgroundImage: new NetworkImage(dummyData[i].avatarUrl),
+                  backgroundImage: new NetworkImage(_reports[i].avatarUrl),
                 ),
                 title: new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     new Text(
-                      dummyData[i].name,
+                      _reports[i].title,
                       style: new TextStyle(fontWeight: FontWeight.bold),
                     ),
                     new Text(
-                      dummyData[i].time,
+                      _reports[i].createdAt,
                       style: new TextStyle(color: Colors.grey, fontSize: 14.0),
                     ),
                   ],
@@ -40,7 +56,7 @@ class ReportScreenState extends State<ReportScreen> {
                 subtitle: new Container(
                   padding: const EdgeInsets.only(top: 5.0),
                   child: new Text(
-                    dummyData[i].message,
+                    _reports[i].description,
                     style: new TextStyle(color: Colors.grey, fontSize: 15.0),
                   ),
                 ),
