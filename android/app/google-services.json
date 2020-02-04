@@ -1,0 +1,159 @@
+{
+  "project_info": {
+    "project_number": "322624742957",
+    "firebase_url": "https://phapquangmedia.firebaseio.com",
+    "project_id": "phapquangmedia",
+    "storage_bucket": "phapquangmedia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322624742957:android:7f76694b80b8bdf1a8faa4",
+        "android_client_info": {
+          "package_name": "com.example.flutterwhatsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322624742957-tn620dnqf5e1f9o1fe41m8664utgtmma.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutterwhatsapp",
+            "certificate_hash": "52b7016fa5dcba74961b058849eb13181517c6d0"
+          }
+        },
+        {
+          "client_id": "322624742957-3vvln9qio7fehio225f4csflfa6o94j2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeQpn3YpGAssI6kPh0ZFLL1zp9fGqPVkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322624742957-3vvln9qio7fehio225f4csflfa6o94j2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322624742957:android:30442a28cdff778ea8faa4",
+        "android_client_info": {
+          "package_name": "com.example.pqmediaplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322624742957-93lhq2mnnlp3l0rip0rf6c1np87fhlp4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pqmediaplayer",
+            "certificate_hash": "519a53fbc0b2cda63252d88881428a4a9cbd58a5"
+          }
+        },
+        {
+          "client_id": "322624742957-3vvln9qio7fehio225f4csflfa6o94j2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeQpn3YpGAssI6kPh0ZFLL1zp9fGqPVkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322624742957-3vvln9qio7fehio225f4csflfa6o94j2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322624742957:android:c57b5604db2bfca8a8faa4",
+        "android_client_info": {
+          "package_name": "com.example.sign_in_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322624742957-ehutsol7np7or5lfop5u3vmtd0vnqipr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sign_in_flutter",
+            "certificate_hash": "519a53fbc0b2cda63252d88881428a4a9cbd58a5"
+          }
+        },
+        {
+          "client_id": "322624742957-3vvln9qio7fehio225f4csflfa6o94j2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeQpn3YpGAssI6kPh0ZFLL1zp9fGqPVkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322624742957-3vvln9qio7fehio225f4csflfa6o94j2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322624742957:android:245aa16b58f2cdf7a8faa4",
+        "android_client_info": {
+          "package_name": "kimlangholz.momentum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322624742957-kpv2fufmg730v3pu9g14s2t6f7q283e5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kimlangholz.momentum",
+            "certificate_hash": "519a53fbc0b2cda63252d88881428a4a9cbd58a5"
+          }
+        },
+        {
+          "client_id": "322624742957-3vvln9qio7fehio225f4csflfa6o94j2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeQpn3YpGAssI6kPh0ZFLL1zp9fGqPVkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322624742957-3vvln9qio7fehio225f4csflfa6o94j2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
