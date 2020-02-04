@@ -95,6 +95,7 @@ class _PQSAppState extends State<PQSApp> with SingleTickerProviderStateMixin {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              title: Text("New report"),
               content: Form(
                 key: _formKey,
                 child: Column(
@@ -133,7 +134,7 @@ class _PQSAppState extends State<PQSApp> with SingleTickerProviderStateMixin {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
-                        child: Text("Insert"),
+                        child: Text("Save"),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();

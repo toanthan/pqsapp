@@ -53,7 +53,7 @@ class ReportScreenState extends State<ReportScreen> {
                 subtitle: new Container(
                   padding: const EdgeInsets.only(top: 5.0),
                   child: new Text(
-                    reportSnap.data[index].description,
+                    reportSnap.data[index].shortDesc,
                     style: new TextStyle(color: Colors.grey, fontSize: 15.0),
                   ),
                 ),

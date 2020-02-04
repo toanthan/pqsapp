@@ -5,11 +5,12 @@ import 'dart:convert';
 
 class ReportModel {
   String title;
+  String shortDesc;
   String description;
   String createdAt;
   String avatarUrl;
 
-  ReportModel({this.title, this.description, this.createdAt, this.avatarUrl});
+  ReportModel({this.title, this.shortDesc, this.description, this.createdAt, this.avatarUrl});
 
   static List<ReportModel> toList(String jsonString) {
     final Iterable<dynamic> data = jsonDecode(jsonString);
@@ -17,6 +18,7 @@ class ReportModel {
         .map<ReportModel>((dynamic item) => ReportModel()
           ..title = item['title']
           ..description = item['description']
+          ..shortDesc = item['shortDesc']
           ..createdAt = item['createdAt']
           ..avatarUrl =
               "http://www.usanetwork.com/sites/usanetwork/files/styles/629x720/public/suits_cast_harvey.jpg?itok=fpTOeeBb")
@@ -28,6 +30,7 @@ class ReportModel {
     return ReportModel()
       ..title = data['title']
       ..description = data['description']
+      ..shortDesc = data['shortDesc']
       ..createdAt = data['createdAt']
       ..avatarUrl =
           "http://www.usanetwork.com/sites/usanetwork/files/styles/629x720/public/suits_cast_harvey.jpg?itok=fpTOeeBb";
