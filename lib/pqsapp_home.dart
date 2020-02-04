@@ -9,9 +9,8 @@ import 'package:flutterwhatsapp/state/report_state.dart';
 import 'package:provider/provider.dart';
 
 class PQSApp extends StatefulWidget {
-  final List<CameraDescription> cameras;
 
-  PQSApp({this.cameras});
+  PQSApp();
 
   @override
   _PQSAppState createState() => _PQSAppState();
