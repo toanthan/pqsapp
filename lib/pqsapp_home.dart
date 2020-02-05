@@ -140,7 +140,7 @@ class _PQSAppState extends State<PQSApp> with SingleTickerProviderStateMixin {
 
                             String title = titleController.text;
                             String description = descriptionController.text;
-                            saveReport(title, description);
+                            saveReport(null, title, description);
                             Provider.of<ReportState>(context, listen: false).increase();
                             Navigator.pop(context);
                           }

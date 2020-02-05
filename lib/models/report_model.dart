@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ReportModel {
+  int id;
   String title;
   String shortDesc;
   String description;
@@ -16,6 +17,7 @@ class ReportModel {
     final Iterable<dynamic> data = jsonDecode(jsonString);
     return data
         .map<ReportModel>((dynamic item) => ReportModel()
+          ..id = item['id']
           ..title = item['title']
           ..description = item['description']
           ..shortDesc = item['shortDesc']
@@ -28,6 +30,7 @@ class ReportModel {
   static ReportModel fromJson(String jsonString) {
     final dynamic data = jsonDecode(jsonString);
     return ReportModel()
+      ..id = data['id']
       ..title = data['title']
       ..description = data['description']
       ..shortDesc = data['shortDesc']
@@ -37,8 +40,8 @@ class ReportModel {
   }
 }
 
-Future<List<ReportModel>> getReports() async {
-  final String url = 'http://192.168.1.15:8080/reports/1';
+Future<List<ReportModel>> getReports(int userId) async {
+  final String url = 'http://192.168.1.15:8080/reports/' + userId.toString();
   final response = await http.get(url);
   if (response.statusCode == 200) {
     return ReportModel.toList(response.body);
@@ -46,12 +49,12 @@ Future<List<ReportModel>> getReports() async {
   throw Exception('Failed to load featured movies');
 }
 
-Future<ReportModel> saveReport(String title, String description) async {
+Future<ReportModel> saveReport(int id, String title, String description) async {
   final String url = 'http://192.168.1.15:8080/reports/1';
 
   final response = await http.post(url,
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode({'title': title, 'description': description}));
+      body: jsonEncode({'id': id, 'title': title, 'description': description}));
   if (response.statusCode == 200) {
     return ReportModel.fromJson(response.body);
   }
