@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterwhatsapp/models/report_model.dart';
 import 'package:flutterwhatsapp/pages/call_screen.dart';
@@ -32,7 +31,7 @@ class _PQSAppState extends State<PQSApp> with SingleTickerProviderStateMixin {
       } else {
         showFab = false;
       }
-      setState(() {});
+      setState((){});
     });
   }
 
@@ -50,15 +49,9 @@ class _PQSAppState extends State<PQSApp> with SingleTickerProviderStateMixin {
           indicatorColor: Colors.white,
           tabs: <Widget>[
             Tab(text: "REPORTS"),
-            Tab(
-              text: "TASKS",
-            ),
-            Tab(
-              text: "NEWS",
-            ),
-            Tab(
-              text: "LEAVE",
-            ),
+            Tab(text: "TASKS",),
+            Tab(text: "NEWS",),
+            Tab(text: "LEAVE",),
           ],
         ),
         actions: <Widget>[
@@ -137,7 +130,6 @@ class _PQSAppState extends State<PQSApp> with SingleTickerProviderStateMixin {
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
-
                             String title = titleController.text;
                             String description = descriptionController.text;
                             saveReport(null, title, description);
