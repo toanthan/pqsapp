@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'common.dart';
 import 'models/user_model.dart';
+import 'settings.dart';
 import 'state/auth_state.dart';
 
 class Auth {
@@ -53,6 +55,7 @@ class Auth {
     UserModel user = UserModel.fromJson(response.body);
     if (user.id > 0) {
       Provider.of<AuthState>(context, listen: false).updateAuth(user);
+      Settings().setAuth(jsonEncode(user));
     }
     return user.id > 0;
   }

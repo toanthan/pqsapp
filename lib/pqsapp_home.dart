@@ -1,4 +1,7 @@
+import 'package:PQSApp/models/leave_model.dart';
+import 'package:PQSApp/models/notification_model.dart';
 import 'package:PQSApp/models/report_model.dart';
+import 'package:PQSApp/models/task_model.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/leave_screen.dart';
@@ -79,9 +82,13 @@ class _ReportAppState extends State<ReportApp>
         ),
         onPressed: () => {
           if (_tabController.index == 0)
-            {ReportScreen().buildModelDialog(context, ReportModel())}
-          else if (_tabController.index == 0)
-            {ReportScreen().buildModelDialog(context, ReportModel())}
+            ReportScreen().buildModelDialog(context, ReportModel())
+          else if (_tabController.index == 1)
+            TaskScreen().buildModelDialog(context, TaskModel())
+          else if (_tabController.index == 2)
+            NotificationScreen().buildModelDialog(context, NotificationModel())
+          else if (_tabController.index == 3)
+            LeaveScreen().buildModelDialog(context, LeaveModel())
         },
       ),
     );

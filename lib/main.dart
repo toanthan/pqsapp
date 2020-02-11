@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:PQSApp/pqsapp_home.dart';
+import 'package:PQSApp/settings.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'models/user_model.dart';
 import 'pages/signin.dart';
 import 'state/auth_state.dart';
 import 'state/report_state.dart';
@@ -23,8 +26,18 @@ Future<Null> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  Future loadAuth(BuildContext context) async {
+    String auth = await Settings().getAuth();
+    if (auth != null) {
+      Provider.of<AuthState>(context, listen: false)
+          .updateAuth(UserModel.fromJson(auth));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    loadAuth(context);
+
     return new MaterialApp(
       title: "PQ Report",
       theme: new ThemeData(
@@ -32,7 +45,9 @@ class MyApp extends StatelessWidget {
         accentColor: new Color(0xff25D366),
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: Provider.of<AuthState>(context, listen: false).hasAuth()
+          ? ReportApp()
+          : LoginScreen(),
     );
   }
 }
