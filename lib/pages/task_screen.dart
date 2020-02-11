@@ -1,10 +1,10 @@
 import 'package:PQSApp/api/task_api.dart';
 import 'package:PQSApp/models/task_model.dart';
+import 'package:PQSApp/pages/store_page_view.dart';
 import 'package:PQSApp/state/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/report_model.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -101,40 +101,84 @@ class TaskScreen extends StatefulWidget {
 class TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
-      itemCount: reports.length,
-      itemBuilder: (context, i) => new Column(
+    return Container(
+      color: Color(0xfff2f2f2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Divider(
-            height: 10.0,
-          ),
-          new ListTile(
-            leading: new CircleAvatar(
-              foregroundColor: Theme.of(context).primaryColor,
-              backgroundColor: Colors.grey,
-              backgroundImage: new NetworkImage(reports[i].avatarUrl),
-            ),
-            title: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                new Text(
-                  reports[i].title,
-                  style: new TextStyle(fontWeight: FontWeight.bold),
+          Card(
+            color: Colors.white,
+            elevation: 0.0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                leading: Stack(
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          "https://s3.amazonaws.com/wll-community-production/images/no-avatar.png"),
+                    ),
+                    Positioned(
+                      bottom: 0.0,
+                      right: 1.0,
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 15,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                new Text(
-                  reports[i].createdAt,
-                  style: new TextStyle(color: Colors.grey, fontSize: 14.0),
+                title: Text(
+                  "My Status",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-              ],
-            ),
-            subtitle: new Container(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: new Text(
-                reports[i].description,
-                style: new TextStyle(color: Colors.grey, fontSize: 15.0),
+                subtitle: Text("Tap to add status update"),
               ),
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Viewed updates",
+              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              color: Colors.white,
+              child: ListView(
+                children: <Widget>[
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          "https://pbs.twimg.com/media/EClDvMXU4AAw_lt?format=jpg&name=medium"),
+                    ),
+                    title: Text(
+                      "Pawan Kumar",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text("Today, 20:16 PM"),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StoryPageView())),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

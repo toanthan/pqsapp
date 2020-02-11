@@ -93,10 +93,10 @@ class LeaveScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Center(
-      child: new Text(
-        "Calls",
-        style: new TextStyle(fontSize: 20.0),
+    return Center(
+      child: Text(
+        "in development",
+        style: TextStyle(fontSize: 20.0),
       ),
     );
   }
