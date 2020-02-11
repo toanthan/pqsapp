@@ -18,6 +18,8 @@ class ReportScreen extends StatefulWidget {
   Future buildModelDialog(BuildContext context, ReportModel report) {
     final titleController = TextEditingController();
     titleController.text = report.title;
+    final dateController = TextEditingController();
+    dateController.text = report.createdAt;
     final descriptionController = TextEditingController();
     descriptionController.text = report.description;
 
@@ -32,7 +34,8 @@ class ReportScreen extends StatefulWidget {
             titlePadding: EdgeInsets.all(10),
             contentPadding: EdgeInsets.all(5),
             title: Text(report.id == null ? "New report" : "Edit report"),
-            content: Form(
+            content: SingleChildScrollView(
+                child: Form(
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -66,6 +69,7 @@ class ReportScreen extends StatefulWidget {
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: DateTimeField(
+                      controller: dateController,
                       format: DateFormat("dd-MM-yyyy"),
                       decoration: InputDecoration(labelText: 'Date'),
                       onShowPicker: (context, currentValue) {
@@ -95,13 +99,17 @@ class ReportScreen extends StatefulWidget {
 
                           String title = titleController.text;
                           String description = descriptionController.text;
+                          String date = dateController.text;
                           ReportApi().save(
                               Provider.of<AuthState>(context, listen: false)
                                   .user
                                   .id,
                               report.id,
                               title,
-                              description);
+                              description,
+                              date);
+                          Provider.of<ReportState>(context, listen: false)
+                              .increase();
                           Navigator.pop(context);
                         }
                       },
@@ -109,7 +117,7 @@ class ReportScreen extends StatefulWidget {
                   )
                 ],
               ),
-            ),
+            )),
           );
         });
   }
@@ -124,11 +132,10 @@ class ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-
+    int userId = Provider.of<AuthState>(context, listen: false).user.id;
     return Consumer<ReportState>(
       builder: (context, state, child) => FutureBuilder(
-          future: ReportApi()
-              .list(Provider.of<AuthState>(context, listen: false).user.id),
+          future: ReportApi().list(userId, state.size),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());

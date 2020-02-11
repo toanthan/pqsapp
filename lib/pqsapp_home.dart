@@ -3,6 +3,7 @@ import 'package:PQSApp/models/notification_model.dart';
 import 'package:PQSApp/models/report_model.dart';
 import 'package:PQSApp/models/task_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'pages/leave_screen.dart';
 import 'pages/notification_screen.dart';
@@ -38,59 +39,67 @@ class _ReportAppState extends State<ReportApp>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("PQS App"),
-        elevation: 0.7,
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Colors.white,
-          tabs: <Widget>[
-            Tab(text: "REPORTS"),
-            Tab(
-              text: "TASKS",
-            ),
-            Tab(
-              text: "NEWS",
-            ),
-            Tab(
-              text: "LEAVE",
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          Icon(Icons.search),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          )
-        ],
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          ReportScreen(),
-          TaskScreen(),
-          NotificationScreen(),
-          LeaveScreen(),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        onPressed: () => {
-          if (_tabController.index == 0)
-            ReportScreen().buildModelDialog(context, ReportModel())
-          else if (_tabController.index == 1)
-            TaskScreen().buildModelDialog(context, TaskModel())
-          else if (_tabController.index == 2)
-            NotificationScreen().buildModelDialog(context, NotificationModel())
-          else if (_tabController.index == 3)
-            LeaveScreen().buildModelDialog(context, LeaveModel())
+    return WillPopScope(
+        onWillPop: () {
+          return new Future(() => false);
         },
-      ),
-    );
+        child: Scaffold(
+          resizeToAvoidBottomPadding: false,
+          appBar: AppBar(
+            leading: Icon(Icons.done_all, size: ScreenUtil().setSp(80)),
+            titleSpacing: 0,
+            title: Text("PQS App"),
+            elevation: 0.7,
+            bottom: TabBar(
+              controller: _tabController,
+              indicatorColor: Colors.white,
+              tabs: <Widget>[
+                Tab(text: "REPORTS"),
+                Tab(
+                  text: "TASKS",
+                ),
+                Tab(
+                  text: "NEWS",
+                ),
+                Tab(
+                  text: "LEAVE",
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              Icon(Icons.search),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              )
+            ],
+          ),
+          body: TabBarView(
+            controller: _tabController,
+            children: <Widget>[
+              ReportScreen(),
+              TaskScreen(),
+              NotificationScreen(),
+              LeaveScreen(),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Theme.of(context).accentColor,
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () => {
+              if (_tabController.index == 0)
+                ReportScreen().buildModelDialog(context, ReportModel())
+              else if (_tabController.index == 1)
+                TaskScreen().buildModelDialog(context, TaskModel())
+              else if (_tabController.index == 2)
+                NotificationScreen()
+                    .buildModelDialog(context, NotificationModel())
+              else if (_tabController.index == 3)
+                LeaveScreen().buildModelDialog(context, LeaveModel())
+            },
+          ),
+        ));
   }
 }

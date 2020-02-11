@@ -67,7 +67,7 @@ public class ReportController {
   }
 
   private Date parseDate(String date) {
-    return DateUtils.parseDate(date, new String[]{"dd-MM-yyyyr"});
+    return DateUtils.parseDate(date, new String[]{"dd-MM-yyyy"});
   }
 
   private ReportDto convert(Report item) {
