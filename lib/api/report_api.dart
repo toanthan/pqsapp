@@ -11,7 +11,7 @@ class ReportApi {
     if (response.statusCode == 200) {
       return ReportModel.toList(response.body);
     }
-    throw Exception('Failed to load featured movies');
+    throw Exception('Failed to load featured reports');
   }
 
   Future<ReportModel> save(
