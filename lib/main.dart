@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterwhatsapp/pages/signin.dart';
-import 'package:flutterwhatsapp/pqsapp_home.dart';
-import 'package:flutterwhatsapp/state/auth_state.dart';
-import 'package:flutterwhatsapp/state/report_state.dart';
 import 'package:provider/provider.dart';
+
+import 'pages/signin.dart';
+import 'state/auth_state.dart';
+import 'state/report_state.dart';
 
 List<CameraDescription> cameras;
 

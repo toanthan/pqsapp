@@ -8,18 +8,22 @@ import java.util.Date;
 
 @Getter
 @Setter
-@Entity(name = "reports")
-public class Report {
+@Entity(name = "leaves")
+public class Leave {
   @Id
-  @Column(name = "report_id")
+  @Column(name = "leave_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  private String title;
-  private String description;
-  private Date createdAt;
+  private String reason;
+  private Date fromDate;
+  private Date toDate;
 
   @OneToOne
   @JoinColumn(name = "creator_id")
   private User creator;
+
+  @OneToOne
+  @JoinColumn(name = "approval_id")
+  private User approval;
 }
