@@ -5,6 +5,7 @@ import com.pqsoft.task.api.dao.UserRepository;
 import com.pqsoft.task.api.dto.ReportDto;
 import com.pqsoft.task.api.model.Report;
 import com.pqsoft.task.api.model.User;
+import org.apache.http.client.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class ReportController {
   @GetMapping(value = "/{userId}")
   public List<ReportDto> listByUser(@PathVariable(value = "userId") int userId) {
     User user = userRepository.getOne(userId);
-    if(user.isAdmin()) {
+    if (user.isAdmin()) {
       return reportRepository.findLatest().stream().map(this::convert).collect(Collectors.toList());
     }
     return reportRepository.findByCreatorIdOrderByCreatedAtDesc(userId).stream().map(this::convert).collect(Collectors.toList());
@@ -51,17 +52,22 @@ public class ReportController {
       report = new Report();
       report.setTitle(dto.getTitle());
       report.setDescription(dto.getDescription());
-      report.setCreatedAt(new Date());
+      report.setCreatedAt(parseDate(dto.getCreatedAt()));
       report.setCreator(user);
     } else {
       report = reportRepository.getOne(dto.getId());
       report.setTitle(dto.getTitle());
+      report.setCreatedAt(parseDate(dto.getCreatedAt()));
       report.setDescription(dto.getDescription());
     }
 
     // save to db
     reportRepository.save(report);
     return dto;
+  }
+
+  private Date parseDate(String date) {
+    return DateUtils.parseDate(date, new String[]{"dd-MM-yyyyr"});
   }
 
   private ReportDto convert(Report item) {

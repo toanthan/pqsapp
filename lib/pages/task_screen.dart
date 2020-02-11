@@ -5,7 +5,6 @@ import 'package:PQSApp/state/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class TaskScreen extends StatefulWidget {
   @override
   TaskScreenState createState() {
@@ -17,6 +16,8 @@ class TaskScreen extends StatefulWidget {
     titleController.text = task.title;
     final descriptionController = TextEditingController();
     descriptionController.text = task.description;
+
+    String assignee;
 
     final _formKey = GlobalKey<FormState>();
     return showDialog(

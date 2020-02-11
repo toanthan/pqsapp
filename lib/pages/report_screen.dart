@@ -1,7 +1,9 @@
 import 'package:PQSApp/api/report_api.dart';
 import 'package:PQSApp/models/report_model.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../state/auth_state.dart';
@@ -59,6 +61,20 @@ class ReportScreen extends StatefulWidget {
                       minLines: 2,
                       maxLines: null,
                       decoration: InputDecoration(labelText: 'Description'),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: DateTimeField(
+                      format: DateFormat("dd-MM-yyyy"),
+                      decoration: InputDecoration(labelText: 'Date'),
+                      onShowPicker: (context, currentValue) {
+                        return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2020),
+                            initialDate: currentValue ?? DateTime.now(),
+                            lastDate: DateTime(2025));
+                      },
                     ),
                   ),
                   Padding(
