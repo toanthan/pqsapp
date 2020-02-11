@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class TaskModel {
+class NotificationModel {
   int id;
   String title;
   String description;
@@ -8,7 +8,7 @@ class TaskModel {
   String creatorUrl;
   String assignToUrl;
 
-  TaskModel({
+  NotificationModel({
     this.title,
     this.description,
     this.createdAt,
@@ -16,10 +16,10 @@ class TaskModel {
     this.assignToUrl,
   });
 
-  static List<TaskModel> toList(String jsonString) {
+  static List<NotificationModel> toList(String jsonString) {
     final Iterable<dynamic> data = jsonDecode(jsonString);
     return data
-        .map<TaskModel>((dynamic item) => TaskModel()
+        .map<NotificationModel>((dynamic item) => NotificationModel()
           ..id = item['id']
           ..title = item['title']
           ..description = item['description']
@@ -29,9 +29,9 @@ class TaskModel {
         .toList();
   }
 
-  static TaskModel fromJson(String jsonString) {
+  static NotificationModel fromJson(String jsonString) {
     final dynamic data = jsonDecode(jsonString);
-    return TaskModel()
+    return NotificationModel()
       ..id = data['id']
       ..title = data['title']
       ..description = data['description']

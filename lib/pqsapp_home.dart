@@ -77,8 +77,12 @@ class _ReportAppState extends State<ReportApp>
           Icons.add,
           color: Colors.white,
         ),
-        onPressed: () =>
-            ReportScreen().buildModelDialog(context, ReportModel()),
+        onPressed: () => {
+          if (_tabController.index == 0)
+            {ReportScreen().buildModelDialog(context, ReportModel())}
+          else if (_tabController.index == 0)
+            {ReportScreen().buildModelDialog(context, ReportModel())}
+        },
       ),
     );
   }

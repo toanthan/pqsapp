@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-class TaskModel {
+class LeaveModel {
   int id;
   String reason;
   String fromDate;
   String toDate;
   String creatorUrl;
 
-  TaskModel({
+  LeaveModel({
     this.id,
     this.reason,
     this.fromDate,
@@ -15,10 +15,10 @@ class TaskModel {
     this.creatorUrl,
   });
 
-  static List<TaskModel> toList(String jsonString) {
+  static List<LeaveModel> toList(String jsonString) {
     final Iterable<dynamic> data = jsonDecode(jsonString);
     return data
-        .map<TaskModel>((dynamic item) => TaskModel()
+        .map<LeaveModel>((dynamic item) => LeaveModel()
           ..id = item['id']
           ..reason = item['title']
           ..fromDate = item['fromDate']
@@ -27,9 +27,9 @@ class TaskModel {
         .toList();
   }
 
-  static TaskModel fromJson(String jsonString) {
+  static LeaveModel fromJson(String jsonString) {
     final dynamic data = jsonDecode(jsonString);
-    return TaskModel()
+    return LeaveModel()
       ..id = data['id']
       ..reason = data['reason']
       ..fromDate = data['fromDate']

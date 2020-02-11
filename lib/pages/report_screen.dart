@@ -79,7 +79,7 @@ class ReportScreen extends StatefulWidget {
 
                           String title = titleController.text;
                           String description = descriptionController.text;
-                          ReportApi().saveReport(
+                          ReportApi().save(
                               Provider.of<AuthState>(context, listen: false)
                                   .user
                                   .id,
@@ -111,8 +111,8 @@ class ReportScreenState extends State<ReportScreen> {
 
     return Consumer<ReportState>(
       builder: (context, state, child) => FutureBuilder(
-          future: ReportApi().getReports(
-              Provider.of<AuthState>(context, listen: false).user.id),
+          future: ReportApi()
+              .list(Provider.of<AuthState>(context, listen: false).user.id),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());

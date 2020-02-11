@@ -7,11 +7,7 @@ class ReportModel {
   String createdAt;
   String avatarUrl;
 
-  ReportModel(
-      {this.title,
-      this.description,
-      this.createdAt,
-      this.avatarUrl});
+  ReportModel({this.title, this.description, this.createdAt, this.avatarUrl});
 
   static List<ReportModel> toList(String jsonString) {
     final Iterable<dynamic> data = jsonDecode(jsonString);

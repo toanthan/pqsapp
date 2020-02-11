@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class AuthState with ChangeNotifier {
   UserModel user;
+
   void updateAuth(UserModel user) {
     this.user = user;
     notifyListeners();
