@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
-
 class ReportModel {
   int id;
   String title;
@@ -42,27 +40,6 @@ class ReportModel {
       ..avatarUrl =
           "http://www.usanetwork.com/sites/usanetwork/files/styles/629x720/public/suits_cast_harvey.jpg?itok=fpTOeeBb";
   }
-}
-
-Future<List<ReportModel>> getReports(int userId) async {
-  final String url = 'http://192.168.1.15:8080/reports/' + userId.toString();
-  final response = await http.get(url);
-  if (response.statusCode == 200) {
-    return ReportModel.toList(response.body);
-  }
-  throw Exception('Failed to load featured movies');
-}
-
-Future<ReportModel> saveReport(int id, String title, String description) async {
-  final String url = 'http://192.168.1.15:8080/reports/1';
-
-  final response = await http.post(url,
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({'id': id, 'title': title, 'description': description}));
-  if (response.statusCode == 200) {
-    return ReportModel.fromJson(response.body);
-  }
-  throw Exception('Failed to load data model');
 }
 
 List<ReportModel> reports = [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'store_page_view.dart';
 
-class StatusScreen extends StatelessWidget {
+class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../auth.dart';
+import '../common.dart';
 import '../pqsapp_home.dart';
 import '../state/auth_state.dart';
 
@@ -58,20 +59,16 @@ class LoginScreen extends StatelessWidget {
                         );
                       });
                   Auth.signInWithGoogle(context).whenComplete(() {
-                    if (Provider.of<AuthState>(context, listen: false).userId ==
-                        null) {
+                    if (Provider.of<AuthState>(context, listen: false)
+                        .hasAuth()) {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ReportApp(),
                       ));
                       return;
                     }
                   }).then((errorCode) {
-                    var info = "";
-                    if (Auth.newAccount) {
-                      info = "Tài khoản có 7 ngày để dùng thử sản phẩm.";
-                    }
                     Navigator.pop(context);
-                    Navigator.pop(context);
+                    showOkDialog(context, "Không thể đăng nhập");
                   });
                 }),
             SizedBox(height: padding),

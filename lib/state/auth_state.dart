@@ -8,6 +8,10 @@ class AuthState with ChangeNotifier {
     notifyListeners();
   }
 
+  bool hasAuth() {
+    return this.userId != null;
+  }
+
   void cleanAuth() {
     this.userId = null;
     notifyListeners();

@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
+import 'common.dart';
 import 'state/auth_state.dart';
 
 class Auth {
@@ -45,8 +46,6 @@ class Auth {
     useGoogle = true;
     useFb = false;
   }
-
-  static var API_HOST = 'http://192.168.1.15:8080';
 
   static Future<bool> mediaAuth(BuildContext context, String token) async {
     var response = await http.post(API_HOST + '/auth/token', body: token);
