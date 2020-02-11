@@ -165,7 +165,7 @@ class ReportScreenState extends State<ReportScreen> {
                           style: new TextStyle(fontWeight: FontWeight.bold),
                         ),
                         new Text(
-                          snapshot.data[index].createdAt,
+                          snapshot.data[index].createdAtDis,
                           style:
                               new TextStyle(color: Colors.grey, fontSize: 14.0),
                         ),

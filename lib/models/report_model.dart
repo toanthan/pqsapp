@@ -4,10 +4,11 @@ class ReportModel {
   int id;
   String title;
   String description;
+  String createdAtDis;
   String createdAt;
   String avatarUrl;
 
-  ReportModel({this.title, this.description, this.createdAt, this.avatarUrl});
+  ReportModel({this.title, this.description, this.createdAtDis, this.createdAt, this.avatarUrl});
 
   static List<ReportModel> toList(String jsonString) {
     final Iterable<dynamic> data = jsonDecode(jsonString);
@@ -16,6 +17,7 @@ class ReportModel {
           ..id = item['id']
           ..title = item['title']
           ..description = item['description']
+          ..createdAtDis = item['createdAtDis']
           ..createdAt = item['createdAt']
           ..avatarUrl = item['avatarUrl'])
         .toList();
@@ -27,6 +29,7 @@ class ReportModel {
       ..id = data['id']
       ..title = data['title']
       ..description = data['description']
-      ..createdAt = data['createdAt'];
+      ..createdAt = data['createdAt']
+    ;
   }
 }
