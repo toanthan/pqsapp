@@ -1,7 +1,6 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class ReportModel {
   int id;
@@ -11,7 +10,12 @@ class ReportModel {
   String createdAt;
   String avatarUrl;
 
-  ReportModel({this.title, this.shortDesc, this.description, this.createdAt, this.avatarUrl});
+  ReportModel(
+      {this.title,
+      this.shortDesc,
+      this.description,
+      this.createdAt,
+      this.avatarUrl});
 
   static List<ReportModel> toList(String jsonString) {
     final Iterable<dynamic> data = jsonDecode(jsonString);

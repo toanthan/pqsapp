@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterwhatsapp/state/auth_state.dart';
-import 'package:flutterwhatsapp/state/report_state.dart';
 import 'package:provider/provider.dart';
 import '../models/report_model.dart';
+import '../state/auth_state.dart';
+import '../state/report_state.dart';
 
 class ReportScreen extends StatefulWidget {
   @override
@@ -20,57 +20,66 @@ class ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ReportState>(
-        builder: (context, state, child) => FutureBuilder(
-      builder: (context, reportSnap) {
-        if (!reportSnap.hasData) {
-          return Center(child: CircularProgressIndicator());
-        }
-        return ListView.builder(
-          itemCount: reportSnap.data.length,
-          itemBuilder: (context, index) => new Column(
-            children: <Widget>[
-              new Divider(
-                height: 10.0,
-              ),
-              new ListTile(
-                onTap: () {
-                  buildShowDialog(context, reportSnap.data[index].id, reportSnap.data[index].title, reportSnap.data[index].description);
-                },
-                leading: new CircleAvatar(
-                  foregroundColor: Theme.of(context).primaryColor,
-                  backgroundColor: Colors.grey,
-                  backgroundImage: new NetworkImage(reportSnap.data[index].avatarUrl),
-                ),
-                title: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Text(
-                      reportSnap.data[index].title,
-                      style: new TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    new Text(
-                      reportSnap.data[index].createdAt,
-                      style: new TextStyle(color: Colors.grey, fontSize: 14.0),
-                    ),
-                  ],
-                ),
-                subtitle: new Container(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: new Text(
-                    reportSnap.data[index].shortDesc,
-                    style: new TextStyle(color: Colors.grey, fontSize: 15.0),
+      builder: (context, state, child) => FutureBuilder(
+          builder: (context, reportSnap) {
+            if (!reportSnap.hasData) {
+              return Center(child: CircularProgressIndicator());
+            }
+            return ListView.builder(
+              itemCount: reportSnap.data.length,
+              itemBuilder: (context, index) => new Column(
+                children: <Widget>[
+                  new Divider(
+                    height: 10.0,
                   ),
-                ),
-              )
-            ],
-          ),
-        );
-      },
-      future: getReports(Provider.of<AuthState>(context, listen: false).userId)),
+                  new ListTile(
+                    onTap: () {
+                      buildShowDialog(
+                          context,
+                          reportSnap.data[index].id,
+                          reportSnap.data[index].title,
+                          reportSnap.data[index].description);
+                    },
+                    leading: new CircleAvatar(
+                      foregroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: Colors.grey,
+                      backgroundImage:
+                          new NetworkImage(reportSnap.data[index].avatarUrl),
+                    ),
+                    title: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new Text(
+                          reportSnap.data[index].title,
+                          style: new TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        new Text(
+                          reportSnap.data[index].createdAt,
+                          style:
+                              new TextStyle(color: Colors.grey, fontSize: 14.0),
+                        ),
+                      ],
+                    ),
+                    subtitle: new Container(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: new Text(
+                        reportSnap.data[index].shortDesc,
+                        style:
+                            new TextStyle(color: Colors.grey, fontSize: 15.0),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+          future: getReports(
+              Provider.of<AuthState>(context, listen: false).userId)),
     );
   }
 
-  Future buildShowDialog(BuildContext context, int id, String title, String description) {
+  Future buildShowDialog(
+      BuildContext context, int id, String title, String description) {
     final titleController = TextEditingController();
     titleController.text = title;
     final descriptionController = TextEditingController();
@@ -100,9 +109,7 @@ class ReportScreenState extends State<ReportScreen> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
-                          labelText: 'Title'
-                      ),
+                      decoration: InputDecoration(labelText: 'Title'),
                     ),
                   ),
                   Padding(
@@ -112,9 +119,7 @@ class ReportScreenState extends State<ReportScreen> {
                       keyboardType: TextInputType.multiline,
                       minLines: 2,
                       maxLines: null,
-                      decoration: InputDecoration(
-                          labelText: 'Description'
-                      ),
+                      decoration: InputDecoration(labelText: 'Description'),
                     ),
                   ),
                   Padding(
