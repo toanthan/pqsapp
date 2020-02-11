@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:PQSApp/pages/loading.dart';
 import 'package:PQSApp/pages/signin.dart';
 import 'package:PQSApp/pqsapp_home.dart';
 import 'package:PQSApp/settings.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
       home: FutureBuilder<bool>(
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return LoadingScreen();
           }
           if (snapshot.data) {
             return ReportApp();
