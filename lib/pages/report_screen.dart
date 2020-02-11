@@ -1,6 +1,7 @@
 import 'package:PQSApp/api/report_api.dart';
 import 'package:PQSApp/models/report_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../state/auth_state.dart';
@@ -23,6 +24,11 @@ class ReportScreen extends StatefulWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            titlePadding: EdgeInsets.all(10),
+            contentPadding: EdgeInsets.all(5),
             title: Text(report.id == null ? "New report" : "Edit report"),
             content: Form(
               key: _formKey,
@@ -58,7 +64,15 @@ class ReportScreen extends StatefulWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
-                      child: Text("Save"),
+                      color: Colors.lightBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        "Save",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
                       onPressed: () async {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
@@ -67,7 +81,8 @@ class ReportScreen extends StatefulWidget {
                           String description = descriptionController.text;
                           ReportApi().saveReport(
                               Provider.of<AuthState>(context, listen: false)
-                                  .userId,
+                                  .user
+                                  .id,
                               report.id,
                               title,
                               description);
@@ -92,10 +107,12 @@ class ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
+
     return Consumer<ReportState>(
       builder: (context, state, child) => FutureBuilder(
           future: ReportApi().getReports(
-              Provider.of<AuthState>(context, listen: false).userId),
+              Provider.of<AuthState>(context, listen: false).user.id),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());
@@ -134,7 +151,9 @@ class ReportScreenState extends State<ReportScreen> {
                     subtitle: new Container(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: new Text(
-                        snapshot.data[index].shortDesc,
+                        snapshot.data[index].description,
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis,
                         style:
                             new TextStyle(color: Colors.grey, fontSize: 15.0),
                       ),

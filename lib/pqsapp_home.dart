@@ -59,8 +59,7 @@ class _ReportAppState extends State<ReportApp>
           Icon(Icons.search),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          ),
-          Icon(Icons.more_vert)
+          )
         ],
       ),
       body: TabBarView(

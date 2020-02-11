@@ -1,19 +1,19 @@
+import 'package:PQSApp/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class AuthState with ChangeNotifier {
-  int userId;
-
-  void updateAuth(int userId) {
-    this.userId = userId;
+  UserModel user;
+  void updateAuth(UserModel user) {
+    this.user = user;
     notifyListeners();
   }
 
   bool hasAuth() {
-    return this.userId != null;
+    return this.user != null;
   }
 
   void cleanAuth() {
-    this.userId = null;
+    this.user = null;
     notifyListeners();
   }
 }

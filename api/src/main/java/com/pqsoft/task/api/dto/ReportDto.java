@@ -18,18 +18,14 @@ public class ReportDto {
   private Integer id;
   private String createdAt;
   private String title;
-  private String shortDesc;
   private String description;
+  private String avatarUrl;
 
   public ReportDto(Report report) {
     this.id = report.getId();
     this.title = report.getTitle();
     this.description = report.getDescription();
-    if(this.description.length() > 100) {
-      this.shortDesc = this.description.substring(0, 100);
-    } else {
-      this.shortDesc = this.description;
-    }
+    this.avatarUrl = report.getCreator().getAvatar();
     // check date different between current date with report date
     int diff =
         (int) DAYS.between(toResetDate(new Date(report.getCreatedAt().getTime())), toResetDate(new Date()));

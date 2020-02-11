@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 import 'common.dart';
+import 'models/user_model.dart';
 import 'state/auth_state.dart';
 
 class Auth {
@@ -49,11 +50,11 @@ class Auth {
 
   static Future<bool> mediaAuth(BuildContext context, String token) async {
     var response = await http.post(API_HOST + '/auth/token', body: token);
-    var userId = int.parse(response.body);
-    if (userId > 0) {
-      Provider.of<AuthState>(context, listen: false).updateAuth(userId);
+    UserModel user = UserModel.fromJson(response.body);
+    if (user.id > 0) {
+      Provider.of<AuthState>(context, listen: false).updateAuth(user);
     }
-    return userId > 0;
+    return user.id > 0;
   }
 
   static void signOut() async {

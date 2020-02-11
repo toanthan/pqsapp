@@ -15,7 +15,7 @@ void showOkDialog(BuildContext context, String text) {
             left: ScreenUtil().setWidth(20),
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
           content: Text(
             text,
@@ -24,7 +24,7 @@ void showOkDialog(BuildContext context, String text) {
           actions: <Widget>[
             FlatButton(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(5),
               ),
               color: Colors.white,
               child: Text(
