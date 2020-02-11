@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:PQSApp/pages/signin.dart';
 import 'package:PQSApp/pqsapp_home.dart';
 import 'package:PQSApp/settings.dart';
 import 'package:camera/camera.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user_model.dart';
-import 'pages/signin.dart';
 import 'state/auth_state.dart';
 import 'state/report_state.dart';
 
@@ -26,28 +26,37 @@ Future<Null> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  Future loadAuth(BuildContext context) async {
+  Future<bool> loadAuth(BuildContext context) async {
     String auth = await Settings().getAuth();
     if (auth != null) {
       Provider.of<AuthState>(context, listen: false)
           .updateAuth(UserModel.fromJson(auth));
+      return true;
     }
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    loadAuth(context);
-
-    return new MaterialApp(
+    return MaterialApp(
       title: "PQ Report",
-      theme: new ThemeData(
+      theme: ThemeData(
         primaryColor: new Color(0xff075E54),
         accentColor: new Color(0xff25D366),
       ),
       debugShowCheckedModeBanner: false,
-      home: Provider.of<AuthState>(context, listen: false).hasAuth()
-          ? ReportApp()
-          : LoginScreen(),
+      home: FutureBuilder<bool>(
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.data) {
+            return ReportApp();
+          }
+          return LoginScreen();
+        },
+        future: loadAuth(context),
+      ),
     );
   }
 }

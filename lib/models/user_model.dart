@@ -10,4 +10,9 @@ class UserModel {
       ..id = data['id']
       ..admin = data['admin'];
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'admin': admin,
+  };
 }

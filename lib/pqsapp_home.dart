@@ -39,6 +39,8 @@ class _ReportAppState extends State<ReportApp>
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
+
     return WillPopScope(
         onWillPop: () {
           return new Future(() => false);
