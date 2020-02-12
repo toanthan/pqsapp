@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../common.dart';
 import '../state/auth_state.dart';
 import '../state/report_state.dart';
 
@@ -77,7 +78,7 @@ class ReportScreen extends StatefulWidget {
                             context: context,
                             firstDate: DateTime(2020),
                             initialDate: currentValue ?? DateTime.now(),
-                            lastDate: DateTime(2025));
+                            lastDate: DateTime.now());
                       },
                     ),
                   ),
@@ -164,7 +165,7 @@ class ReportScreenState extends State<ReportScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         new Text(
-                          snapshot.data[index].title,
+                          utf8convert(snapshot.data[index].title),
                           style: new TextStyle(fontWeight: FontWeight.bold),
                         ),
                         new Text(
@@ -177,7 +178,7 @@ class ReportScreenState extends State<ReportScreen> {
                     subtitle: new Container(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: new Text(
-                        snapshot.data[index].description,
+                        utf8convert(snapshot.data[index].description),
                         softWrap: false,
                         overflow: TextOverflow.ellipsis,
                         style:
