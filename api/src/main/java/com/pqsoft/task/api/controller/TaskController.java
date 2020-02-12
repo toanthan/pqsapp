@@ -6,7 +6,6 @@ import com.pqsoft.task.api.dao.UserRepository;
 import com.pqsoft.task.api.dto.ReportDto;
 import com.pqsoft.task.api.model.Report;
 import com.pqsoft.task.api.model.User;
-import org.apache.http.client.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +16,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @ResponseBody
-@RequestMapping(value = "/reports")
-public class ReportController {
+@RequestMapping(value = "/tasks")
+public class TaskController {
   private final ReportRepository reportRepository;
   private final UserRepository userRepository;
 
   @Autowired
-  public ReportController(ReportRepository reportRepository, UserRepository userRepository) {
+  public TaskController(ReportRepository reportRepository, UserRepository userRepository) {
     this.reportRepository = reportRepository;
     this.userRepository = userRepository;
   }
@@ -63,22 +62,17 @@ public class ReportController {
       report = new Report();
       report.setTitle(dto.getTitle());
       report.setDescription(dto.getDescription());
-      report.setCreatedAt(parseDate(dto.getCreatedAt()));
+      report.setCreatedAt(new Date());
       report.setCreator(user);
     } else {
       report = reportRepository.getOne(dto.getId());
       report.setTitle(dto.getTitle());
-      report.setCreatedAt(parseDate(dto.getCreatedAt()));
       report.setDescription(dto.getDescription());
     }
 
     // save to db
     reportRepository.save(report);
     return dto;
-  }
-
-  private Date parseDate(String date) {
-    return DateUtils.parseDate(date, new String[]{"dd-MM-yyyy"});
   }
 
   private ReportDto convert(Report item) {

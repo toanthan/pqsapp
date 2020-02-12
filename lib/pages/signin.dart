@@ -1,49 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:flutterwhatsapp/state/auth_state.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../auth.dart';
 import '../pqsapp_home.dart';
+import '../state/auth_state.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const padding = 25.0;
+    ScreenUtil.init(context);
     return MaterialApp(
         title: 'ĐĂNG NHẬP',
         home: Scaffold(
+            resizeToAvoidBottomPadding: false,
             body: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              padding: EdgeInsets.only(
+                top: ScreenUtil().setWidth(500),
+                left: ScreenUtil().setWidth(140),
+                right: ScreenUtil().setWidth(140),
+              ),
               children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 250.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("images/senhong-300.jpg"),
-                        fit: BoxFit.cover),
-                  ),
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        width: ScreenUtil().setWidth(360),
+                        height: ScreenUtil().setHeight(360),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("images/senhong-notext.png"),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                      )
+                    ]),
                 SizedBox(height: padding),
-                GoogleSignInButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        });
-                    Auth.signInWithGoogle(context).whenComplete(() {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => PQSApp(),
-                      ));
-                    });
-                  },
-                  darkMode: true,
-                  text: "Đăng nhập với Google",
-                ),
+                FlatButton(
+                    color: Color.fromRGBO(221, 75, 57, 1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: Text(
+                      "Đăng nhập bằng Google",
+                      style: TextStyle(
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                          fontSize: ScreenUtil().setSp(50)),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          });
+                      Auth.signInWithGoogle(context).whenComplete(() {
+                        if (Provider.of<AuthState>(context, listen: false)
+                            .hasAuth()) {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => ReportApp(),
+                          ));
+                          return;
+                        }
+                      }).then((errorCode) {});
+                    }),
                 SizedBox(height: padding),
               ],
             )));

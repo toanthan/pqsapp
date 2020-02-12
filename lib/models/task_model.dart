@@ -1,35 +1,41 @@
 import 'dart:convert';
 
-class ReportModel {
+class TaskModel {
   int id;
   String title;
   String description;
-  String createdAtDis;
   String createdAt;
-  String avatarUrl;
 
-  ReportModel({this.title, this.description, this.createdAtDis, this.createdAt, this.avatarUrl});
+  String creatorUrl;
+  String assignToUrl;
 
-  static List<ReportModel> toList(String jsonString) {
+  TaskModel({
+    this.title,
+    this.description,
+    this.createdAt,
+    this.creatorUrl,
+    this.assignToUrl,
+  });
+
+  static List<TaskModel> toList(String jsonString) {
     final Iterable<dynamic> data = jsonDecode(jsonString);
     return data
-        .map<ReportModel>((dynamic item) => ReportModel()
+        .map<TaskModel>((dynamic item) => TaskModel()
           ..id = item['id']
           ..title = item['title']
           ..description = item['description']
-          ..createdAtDis = item['createdAtDis']
           ..createdAt = item['createdAt']
-          ..avatarUrl = item['avatarUrl'])
+          ..creatorUrl = item['creatorUrl']
+          ..assignToUrl = item['assignToUrl'])
         .toList();
   }
 
-  static ReportModel fromJson(String jsonString) {
+  static TaskModel fromJson(String jsonString) {
     final dynamic data = jsonDecode(jsonString);
-    return ReportModel()
+    return TaskModel()
       ..id = data['id']
       ..title = data['title']
       ..description = data['description']
-      ..createdAt = data['createdAt']
-    ;
+      ..createdAt = data['createdAt'];
   }
 }

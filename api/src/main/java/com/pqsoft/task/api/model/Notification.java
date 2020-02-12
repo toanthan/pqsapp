@@ -8,10 +8,10 @@ import java.util.Date;
 
 @Getter
 @Setter
-@Entity(name = "reports")
-public class Report {
+@Entity(name = "notifications")
+public class Notification {
   @Id
-  @Column(name = "report_id")
+  @Column(name = "notification_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 

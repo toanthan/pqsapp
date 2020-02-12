@@ -1,13 +1,17 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterwhatsapp/state/auth_state.dart';
-import 'package:http/http.dart' as http;
-
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+
+import 'common.dart';
+import 'models/user_model.dart';
+import 'settings.dart';
+import 'state/auth_state.dart';
 
 class Auth {
   static final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -38,7 +42,7 @@ class Auth {
     final idToken = await user.getIdToken();
     final token = idToken.token;
     bool result = await mediaAuth(context, token);
-    if(!result) {
+    if (!result) {
       //
     }
 
@@ -46,15 +50,14 @@ class Auth {
     useFb = false;
   }
 
-  static var API_HOST = 'http://192.168.1.15:8080';
-
   static Future<bool> mediaAuth(BuildContext context, String token) async {
     var response = await http.post(API_HOST + '/auth/token', body: token);
-    var userId = int.parse(response.body);
-    if(userId > 0) {
-      Provider.of<AuthState>(context, listen: false).updateAuth(userId);
+    UserModel user = UserModel.fromJson(response.body);
+    if (user.id > 0) {
+      Provider.of<AuthState>(context, listen: false).updateAuth(user);
+      Settings().setAuth(jsonEncode(user));
     }
-    return userId > 0;
+    return user.id > 0;
   }
 
   static void signOut() async {

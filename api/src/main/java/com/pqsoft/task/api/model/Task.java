@@ -8,10 +8,10 @@ import java.util.Date;
 
 @Getter
 @Setter
-@Entity(name = "reports")
-public class Report {
+@Entity(name = "tasks")
+public class Task {
   @Id
-  @Column(name = "report_id")
+  @Column(name = "task_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
@@ -22,4 +22,8 @@ public class Report {
   @OneToOne
   @JoinColumn(name = "creator_id")
   private User creator;
+
+  @OneToOne
+  @JoinColumn(name = "assignee_id")
+  private User assignee;
 }

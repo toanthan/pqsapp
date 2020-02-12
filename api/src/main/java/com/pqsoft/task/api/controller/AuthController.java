@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -23,13 +26,24 @@ public class AuthController {
   }
 
   @ResponseBody
+  @Transactional
   @PostMapping("/auth/token")
-  public int verify(@RequestBody String authToken) throws Exception {
+  public Map<String, Object> verify(@RequestBody String authToken) throws Exception {
+    Map<String, Object> result = new HashMap<>();
     final UserTokenInfo tokenInfo = new FirebaseTokenVerifier().verify(authToken);
     User user = userRepository.findByEmail(tokenInfo.getEmail());
-    if(Objects.nonNull(user)) {
-      return  user.getId();
+    if (Objects.nonNull(user)) {
+      user.setAvatar(tokenInfo.getPicture());
+      userRepository.save(user);
+      result.put("id", user.getId());
+      result.put("admin", user.isAdmin());
+      result.put("key", user.getKey());
+      return result;
     }
-    return -1;
+
+    result.put("id", -1);
+    result.put("admin", false);
+    result.put("key", "NA");
+    return result;
   }
 }
