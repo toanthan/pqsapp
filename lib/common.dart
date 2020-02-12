@@ -45,6 +45,9 @@ void showOkDialog(BuildContext context, String text) {
 }
 
 String utf8convert(String text) {
-  List<int> bytes = text.toString().codeUnits;
-  return utf8.decode(bytes);
+  if (text != null) {
+    List<int> bytes = text.toString().codeUnits;
+    return utf8.decode(bytes);
+  }
+  return "";
 }

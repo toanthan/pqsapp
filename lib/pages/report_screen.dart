@@ -18,11 +18,11 @@ class ReportScreen extends StatefulWidget {
 
   Future buildModelDialog(BuildContext context, ReportModel report) {
     final titleController = TextEditingController();
-    titleController.text = report.title;
+    titleController.text = utf8convert(report.title);
     final dateController = TextEditingController();
     dateController.text = report.createdAt;
     final descriptionController = TextEditingController();
-    descriptionController.text = report.description;
+    descriptionController.text = utf8convert(report.description);
 
     final _formKey = GlobalKey<FormState>();
     return showDialog(
