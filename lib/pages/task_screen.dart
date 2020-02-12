@@ -153,7 +153,7 @@ class TaskScreenState extends State<TaskScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Viewed updates",
+              "My tasks",
               style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
             ),
           ),
@@ -170,7 +170,7 @@ class TaskScreenState extends State<TaskScreen> {
                           "https://pbs.twimg.com/media/EClDvMXU4AAw_lt?format=jpg&name=medium"),
                     ),
                     title: Text(
-                      "Pawan Kumar",
+                      "In development",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text("Today, 20:16 PM"),

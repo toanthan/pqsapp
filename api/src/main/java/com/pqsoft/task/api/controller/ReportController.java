@@ -1,5 +1,6 @@
 package com.pqsoft.task.api.controller;
 
+import com.pqsoft.task.api.KeySpace;
 import com.pqsoft.task.api.dao.ReportRepository;
 import com.pqsoft.task.api.dao.UserRepository;
 import com.pqsoft.task.api.dto.ReportDto;
@@ -27,8 +28,13 @@ public class ReportController {
     this.userRepository = userRepository;
   }
 
-  @GetMapping(value = "/{userId}")
-  public List<ReportDto> listByUser(@PathVariable(value = "userId") int userId) {
+  @GetMapping(value = "/{userId}/{key}")
+  public List<ReportDto> listByUser(@PathVariable(value = "userId") int userId, @PathVariable(value = "key") String key) {
+    if (!KeySpace.SPACES.containsKey(key)
+        || KeySpace.SPACES.get(key) != userId) {
+      throw new RuntimeException("Invalid key");
+    }
+
     User user = userRepository.getOne(userId);
     if (user.isAdmin()) {
       return reportRepository.findLatest().stream().map(this::convert).collect(Collectors.toList());
@@ -43,8 +49,13 @@ public class ReportController {
    * @param dto    from http post body
    * @return reportModel received
    */
-  @PostMapping(value = "/{userId}")
-  public ReportDto save(@PathVariable(value = "userId") int userId, @RequestBody ReportDto dto) {
+  @PostMapping(value = "/{userId}/{key}")
+  public ReportDto save(@PathVariable(value = "userId") int userId, @PathVariable(value = "key") String key, @RequestBody ReportDto dto) {
+    if (!KeySpace.SPACES.containsKey(key)
+        || KeySpace.SPACES.get(key) != userId) {
+      throw new RuntimeException("Invalid key");
+    }
+
     User user = userRepository.getOne(userId);
     Report report;
     if (Objects.isNull(dto.getId())) {
