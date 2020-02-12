@@ -79,13 +79,16 @@ class TaskScreen extends StatefulWidget {
 
                           String title = titleController.text;
                           String description = descriptionController.text;
-                          TaskApi().save(
+                          int userId =
                               Provider.of<AuthState>(context, listen: false)
                                   .user
-                                  .id,
-                              task.id,
-                              title,
-                              description);
+                                  .id;
+                          String key =
+                              Provider.of<AuthState>(context, listen: false)
+                                  .user
+                                  .key;
+                          TaskApi()
+                              .save(userId, key, task.id, title, description);
                           Navigator.pop(context);
                         }
                       },

@@ -5,9 +5,14 @@ import 'package:PQSApp/models/report_model.dart';
 import 'package:http/http.dart' as http;
 
 class ReportApi {
-  Future<List<ReportModel>> list(int userId, int time) async {
-    final String url =
-        API_HOST + '/reports/' + userId.toString() + "?" + time.toString();
+  Future<List<ReportModel>> list(int userId, String key, int time) async {
+    final String url = API_HOST +
+        '/reports/' +
+        userId.toString() +
+        "/" +
+        key +
+        "?" +
+        time.toString();
     final response = await http.get(url);
     if (response.statusCode == 200) {
       return ReportModel.toList(response.body);
@@ -15,9 +20,9 @@ class ReportApi {
     throw Exception('Failed to load featured reports');
   }
 
-  Future<ReportModel> save(final int userId, int id, String title,
+  Future<ReportModel> save(final int userId, String key, int id, String title,
       String description, String date) async {
-    final String url = API_HOST + '/reports/' + userId.toString();
+    final String url = API_HOST + '/reports/' + userId.toString() + "/" + key;
 
     final response = await http.post(url,
         headers: {"Content-Type": "application/json"},

@@ -22,6 +22,9 @@ public class User {
   private String email;
   private String avatar;
 
+  @Column(unique = true)
+  private String key;
+
   private int status;
   private boolean admin;
 }

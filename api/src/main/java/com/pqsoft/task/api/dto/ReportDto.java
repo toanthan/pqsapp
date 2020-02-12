@@ -30,13 +30,13 @@ public class ReportDto {
     // check date different between current date with report date
     int diff =
         (int) DAYS.between(toResetDate(new Date(report.getCreatedAt().getTime())), toResetDate(new Date()));
-    if(diff == 0) { // same date, only show hour/minutes
+    if (diff == 0) { // same date, only show hour/minutes
       createdAtDis = DateUtil.format(report.getCreatedAt(), "HH:mm");
-    } else if(diff == 1) {
+    } else if (diff == 1) {
       createdAtDis = "Yesterday";
-    } else if(diff > 1 && diff < 7) {
+    } else if (diff > 1 && diff < 7) {
       createdAtDis = String.format("%s days ago", diff);
-    } else if(diff == 7) {
+    } else if (diff == 7) {
       createdAtDis = "Last week";
     } else {
       createdAtDis = DateUtil.format(report.getCreatedAt(), "dd-MM-yy");

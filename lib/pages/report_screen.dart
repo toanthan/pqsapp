@@ -100,14 +100,16 @@ class ReportScreen extends StatefulWidget {
                           String title = titleController.text;
                           String description = descriptionController.text;
                           String date = dateController.text;
-                          ReportApi().save(
+                          int userId =
                               Provider.of<AuthState>(context, listen: false)
                                   .user
-                                  .id,
-                              report.id,
-                              title,
-                              description,
-                              date);
+                                  .id;
+                          String key =
+                              Provider.of<AuthState>(context, listen: false)
+                                  .user
+                                  .key;
+                          ReportApi().save(
+                              userId, key, report.id, title, description, date);
                           Provider.of<ReportState>(context, listen: false)
                               .increase();
                           Navigator.pop(context);
@@ -133,9 +135,10 @@ class ReportScreenState extends State<ReportScreen> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     int userId = Provider.of<AuthState>(context, listen: false).user.id;
+    String key = Provider.of<AuthState>(context, listen: false).user.key;
     return Consumer<ReportState>(
       builder: (context, state, child) => FutureBuilder(
-          future: ReportApi().list(userId, state.size),
+          future: ReportApi().list(userId, key, state.size),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());

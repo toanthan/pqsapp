@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-var API_HOST = 'http://192.168.1.253:8080';
+var API_HOST = 'http://172.16.4.180:8080';
 
 void showOkDialog(BuildContext context, String text) {
   showDialog(

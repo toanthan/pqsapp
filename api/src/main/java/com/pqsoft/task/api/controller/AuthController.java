@@ -37,11 +37,13 @@ public class AuthController {
       userRepository.save(user);
       result.put("id", user.getId());
       result.put("admin", user.isAdmin());
+      result.put("key", user.getKey());
       return result;
     }
 
     result.put("id", -1);
     result.put("admin", false);
+    result.put("key", "NA");
     return result;
   }
 }

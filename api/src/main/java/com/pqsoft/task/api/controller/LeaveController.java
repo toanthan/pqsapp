@@ -29,7 +29,7 @@ public class LeaveController {
   @GetMapping(value = "/{userId}")
   public List<ReportDto> listByUser(@PathVariable(value = "userId") int userId) {
     User user = userRepository.getOne(userId);
-    if(user.isAdmin()) {
+    if (user.isAdmin()) {
       return reportRepository.findLatest().stream().map(this::convert).collect(Collectors.toList());
     }
     return reportRepository.findByCreatorIdOrderByCreatedAtDesc(userId).stream().map(this::convert).collect(Collectors.toList());
