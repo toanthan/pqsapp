@@ -37,7 +37,7 @@ public class AuthController {
       userRepository.save(user);
       result.put("id", user.getId());
       result.put("admin", user.isAdmin());
-      result.put("key", user.getKey());
+      result.put("key", user.getApiKey());
       return result;
     }
 
