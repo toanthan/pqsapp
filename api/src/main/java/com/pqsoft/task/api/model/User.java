@@ -23,7 +23,7 @@ public class User {
   private String avatar;
 
   @Column(unique = true)
-  private String key;
+  private String apiKey;
 
   private int status;
   private boolean admin;

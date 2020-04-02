@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-var API_HOST = 'http://172.16.4.180:8080';
+var API_HOST = 'http://pqsapp.congtyphapquang.vn';
 
 void showOkDialog(BuildContext context, String text) {
   showDialog(
@@ -40,4 +42,12 @@ void showOkDialog(BuildContext context, String text) {
           elevation: 10,
         );
       });
+}
+
+String utf8convert(String text) {
+  if (text != null) {
+    List<int> bytes = text.toString().codeUnits;
+    return utf8.decode(bytes);
+  }
+  return "";
 }

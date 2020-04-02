@@ -31,7 +31,7 @@ public class ReportDto {
     int diff =
         (int) DAYS.between(toResetDate(new Date(report.getCreatedAt().getTime())), toResetDate(new Date()));
     if (diff == 0) { // same date, only show hour/minutes
-      createdAtDis = DateUtil.format(report.getCreatedAt(), "HH:mm");
+      createdAtDis = "Today";
     } else if (diff == 1) {
       createdAtDis = "Yesterday";
     } else if (diff > 1 && diff < 7) {

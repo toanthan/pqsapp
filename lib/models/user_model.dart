@@ -10,13 +10,12 @@ class UserModel {
     return UserModel()
       ..id = data['id']
       ..admin = data['admin']
-      ..key = data['key']
-    ;
+      ..key = data['key'];
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'admin': admin,
-    'key': key,
-  };
+        'id': id,
+        'admin': admin,
+        'key': key,
+      };
 }

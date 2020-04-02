@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
-
-import '../auth.dart';
-import '../pqsapp_home.dart';
-import '../state/auth_state.dart';
 
 class LoadingScreen extends StatelessWidget {
   @override

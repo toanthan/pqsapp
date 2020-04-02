@@ -37,8 +37,8 @@ public class ApiApplication {
     FirebaseApp.initializeApp(options);
 
     List<User> users = userRepository.findAll();
-    for(User user : users) {
-      KeySpace.SPACES.put(user.getKey(), user.getId());
+    for (User user : users) {
+      KeySpace.SPACES.put(user.getApiKey(), user.getId());
     }
   }
 
